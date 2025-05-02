@@ -1,0 +1,6 @@
+@ShoppEcommerce_WebApp.WebAPI_HostAddress = http://localhost:5063
+
+GET {{ShoppEcommerce_WebApp.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
