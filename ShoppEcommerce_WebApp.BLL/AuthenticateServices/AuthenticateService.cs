@@ -62,6 +62,7 @@ namespace ShoppEcommerce_WebApp.BLL.AuthenticateServices
         {
             try
             {
+                bool result = true;
                 var existingAccount = await _unitOfWork.Accounts.GetByEmail(request.Email);
                 if (existingAccount != null)
                 {
@@ -69,15 +70,25 @@ namespace ShoppEcommerce_WebApp.BLL.AuthenticateServices
                     throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
                 }
                 var account = _mapper.Map<Account>(request);
-                Role role = new Role();
-                role.RoleName = EnumRoleName.ROLE_CUSTOMER;
+                Role? role = await _unitOfWork.Roles.GetByName(EnumRoleName.ROLE_CUSTOMER);
+                if (role == null) throw new AppException(ErrorCode.ROLE_NOT_NULL);
                 account.RoleId = role.Id;
                 account.Role = role;
-                if (account.RoleId == null) throw new AppException(ErrorCode.ROLE_NOT_NULL);
                 account.EnumAccountStatus = EnumAccountStatus.WAIT_CONFIRM;
+                account.CreateAt = DateTime.UtcNow;
+                account.UpdateAt = DateTime.UtcNow;
                 if (account.EnumAccountStatus == null) throw new AppException(ErrorCode.ACCOUNT_STATUS_NOT_NULL);
+                if (request.Password != request.ConfirmPassword) throw new AppException(ErrorCode.INVALID_PASSWORD);
                 account.Password = _passwordHasher.HashPassword(request.Password);
                 await _unitOfWork.Accounts.CreateAsync(account);
+                await _unitOfWork.SaveChangesWithTransactionAsync();
+                Customer customer = new Customer
+                {
+                    Account = account,
+                    HomeAddressId = null,
+                    OrderAddresses = new List<Address>()
+                };
+                await _unitOfWork.Customers.CreateAsync(customer);
                 await _unitOfWork.SaveChangesWithTransactionAsync();
                 _logger.LogInformation("Tạo tài khoản mới thành công với email {Email}, Role: {Role}", request.Email, account.Role);
                 return true;

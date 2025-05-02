@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity.Data;
 using ShoppEcommerce_WebApp.Common.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShoppEcommerce_WebApp.Common.ViewModels.AuthenticateResponse;
+using ShoppEcommerce_WebApp.Common.ViewModels.Requests;
+using ShoppEcommerce_WebApp.Common.ViewModels.Responses;
 
 namespace ShoppEcommerce_WebApp.BLL.Mappers
 {
@@ -13,10 +10,10 @@ namespace ShoppEcommerce_WebApp.BLL.Mappers
     {
         public AccountMapper()
         {
-            //CreateMap<AccountRequest, Account>();
-            //CreateMap<RegisterRequest, Account>();
-            //CreateMap<Account, AccountResponse>();
-            //CreateMap<Account, AccountCurrent>();
+            CreateMap<AccountRequest, Account>();
+            CreateMap<RegisterRequest, Account>();
+            CreateMap<Account, AccountResponse>();
+            CreateMap<Account, AccountCurrent>();
         }
     }
 }

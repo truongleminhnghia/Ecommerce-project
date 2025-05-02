@@ -13,7 +13,7 @@ namespace ShoppEcommerce_WebApp.DAL.Reposiroties.AccountRepository
 
         public async Task<Account?> GetByEmail(string email)
         {
-            return await _context.Accounts.FirstOrDefaultAsync(ac => ac.Email.Equals(email));
+            return await _context.Accounts.Include(a => a.Role).FirstOrDefaultAsync(ac => ac.Email.Equals(email));
         }
 
         public async Task<IEnumerable<Account>> FindAll()
