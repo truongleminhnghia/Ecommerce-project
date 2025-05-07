@@ -13,7 +13,8 @@ namespace ShoppEcommerce_WebApp.Common.ViewModels.Requests
         public string? Phone { get; set; }
         public string? Address { get; set; }
         public string? Avatar { get; set; }
-        // public EnumRoleName? Role { get; set; }
+        public EnumRoleName RoleName { get; set; }
         public EnumAccountStatus? EnumAccountStatus { get; set; }
+        public EnumGender Gender { get; set; }
     }
 }

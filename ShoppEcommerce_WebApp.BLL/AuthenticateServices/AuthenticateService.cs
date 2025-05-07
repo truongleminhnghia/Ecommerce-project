@@ -62,7 +62,6 @@ namespace ShoppEcommerce_WebApp.BLL.AuthenticateServices
         {
             try
             {
-                bool result = true;
                 var existingAccount = await _unitOfWork.Accounts.GetByEmail(request.Email);
                 if (existingAccount != null)
                 {
@@ -81,7 +80,7 @@ namespace ShoppEcommerce_WebApp.BLL.AuthenticateServices
                 if (request.Password != request.ConfirmPassword) throw new AppException(ErrorCode.INVALID_PASSWORD);
                 account.Password = _passwordHasher.HashPassword(request.Password);
                 await _unitOfWork.Accounts.CreateAsync(account);
-                await _unitOfWork.SaveChangesWithTransactionAsync();
+                // await _unitOfWork.SaveChangesWithTransactionAsync();
                 Customer customer = new Customer
                 {
                     Account = account,

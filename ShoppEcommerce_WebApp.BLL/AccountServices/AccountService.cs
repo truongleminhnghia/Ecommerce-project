@@ -33,6 +33,12 @@ namespace ShoppEcommerce_WebApp.BLL.AccountServices
                 if (existingAccount != null) throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
                 var account = _mapper.Map<Account>(req);
                 // account.Role = isAdmin ? req.Role : EnumRoleName.ROLE_CUSTOMER;
+                Role? role = await _unitOfWork.Roles.GetByName(req.RoleName);
+                if (role == null) throw new AppException(ErrorCode.NOT_FOUND);
+                account.Role = role;
+                account.RoleId = role.Id;
+                account.CreateAt = DateTime.UtcNow;
+                account.UpdateAt = DateTime.UtcNow;
                 account.EnumAccountStatus = EnumAccountStatus.WAIT_CONFIRM;
                 account.Password = _passwordHasher.HashPassword(req.Password);
                 await _unitOfWork.Accounts.CreateAsync(account);
