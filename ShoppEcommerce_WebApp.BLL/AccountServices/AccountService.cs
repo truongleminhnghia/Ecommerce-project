@@ -25,6 +25,14 @@ namespace ShoppEcommerce_WebApp.BLL.AccountServices
             _passwordHasher = passwordHasher;
         }
 
+        public string GenerateRandomNumber()
+        {
+            Random random = new Random();
+            string randomNumber = random.Next(10000000, 99999999).ToString(); // Tạo 1 số ngẫu nhiên từ 10000000 đến 99999999
+            return randomNumber;
+        }
+
+
         public async Task<bool> CreateAccount(AccountRequest req, bool isAdmin)
         {
             try
@@ -42,8 +50,19 @@ namespace ShoppEcommerce_WebApp.BLL.AccountServices
                 account.EnumAccountStatus = EnumAccountStatus.WAIT_CONFIRM;
                 account.Password = _passwordHasher.HashPassword(req.Password);
                 await _unitOfWork.Accounts.CreateAsync(account);
+                if (req.RoleName != EnumRoleName.ROLE_CUSTOMER)
+                {
+                    Employee employee = new Employee()
+                    {
+                        RefCode = GenerateRandomNumber(),
+                        // StoreId = req.StoreId.Value,
+                    };
+                    await _unitOfWork.Employees.CreateAsync(employee);
+                    await _unitOfWork.SaveChangesWithTransactionAsync();
+                    account.EmployeeId = employee.Id;
+                    account.Employee = employee;
+                }
                 await _unitOfWork.SaveChangesWithTransactionAsync();
-                // _logger.LogInformation("Create account successfully with  email {Email}, Role: {Role}", req.Email, account.Role);
                 return true;
             }
             catch (AppException ex)

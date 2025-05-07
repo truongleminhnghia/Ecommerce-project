@@ -16,5 +16,6 @@ namespace ShoppEcommerce_WebApp.Common.ViewModels.Requests
         public EnumRoleName RoleName { get; set; }
         public EnumAccountStatus? EnumAccountStatus { get; set; }
         public EnumGender Gender { get; set; }
+        // public Guid? StoreId { get; set; }
     }
 }

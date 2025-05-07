@@ -22,7 +22,7 @@ namespace ShoppEcommerce_WebApp.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "ROLE_ADMIN, ROLE_STAFF, ROLE_MANAGER")]
+        // [Authorize(Roles = "ROLE_ADMIN, ROLE_STAFF, ROLE_MANAGER")]
         public async Task<IActionResult> CreateAccount([FromBody] AccountRequest request)
         {
             var result = await _accountService.CreateAccount(request, true);

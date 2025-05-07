@@ -15,14 +15,14 @@ namespace ShoppEcommerce_WebApp.Common.Entities
         [Required]
         [Column("ref_code", TypeName = "VARCHAR(10)")]
         public string? RefCode { get; set; }
-        
+
         [Required]
         [Column("home_address_id")]
-        public Guid HomeAddressId { get; set; }
+        public Guid? HomeAddressId { get; set; }
 
         [Required]
         [Column("work_address_id")]
-        public Guid WorkAddressId { get; set; }
+        public Guid? WorkAddressId { get; set; }
 
         [ForeignKey(nameof(HomeAddressId))]
         [InverseProperty("EmployeeHome")]
@@ -34,10 +34,10 @@ namespace ShoppEcommerce_WebApp.Common.Entities
 
         [InverseProperty(nameof(Account.Employee))]
         public Account? Account { get; set; }
-        
+
         [Required]
         [Column("store_id")]
-        public Guid StoreId { get; set; }
+        public Guid? StoreId { get; set; }
 
         [ForeignKey(nameof(StoreId))]
         public Store? Store { get; set; }
