@@ -8,6 +8,7 @@ namespace ShoppEcommerce_WebApp.WebAPI.Configurations
         {
             services.AddAutoMapper(typeof(AccountMapper));
             services.AddAutoMapper(typeof(AddressMapper));
+            services.AddAutoMapper(typeof(StoreMapper));
             services.AddAutoMapper(typeof(RoleMapper));
             return services;
         }

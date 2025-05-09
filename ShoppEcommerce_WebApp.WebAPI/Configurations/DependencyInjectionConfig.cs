@@ -7,6 +7,8 @@ using ShoppEcommerce_WebApp.DAL.Reposiroties.RoleRepository;
 using ShoppEcommerce_WebApp.BLL.Roles;
 using ShoppEcommerce_WebApp.BLL.AuthenticateServices;
 using ShoppEcommerce_WebApp.BLL.AccountServices;
+using ShoppEcommerce_WebApp.DAL.Reposiroties.Stores;
+using ShoppEcommerce_WebApp.BLL.Stores;
 
 namespace ShoppEcommerce_WebApp.WebAPI.Configurations
 {
@@ -24,6 +26,9 @@ namespace ShoppEcommerce_WebApp.WebAPI.Configurations
             services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IRoleService, RoleService>();
+
+            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<IStoreService, StoreService>();
             return services;
         }
     }

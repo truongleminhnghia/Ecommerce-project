@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using ShoppEcommerce_WebApp.BLL.AccountServices;
 using ShoppEcommerce_WebApp.Common.Enums;
