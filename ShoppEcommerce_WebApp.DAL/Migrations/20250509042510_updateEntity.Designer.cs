@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoppEcommerce_WebApp.DAL.Context;
 
@@ -11,9 +12,11 @@ using ShoppEcommerce_WebApp.DAL.Context;
 namespace ShoppEcommerce_WebApp.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250509042510_updateEntity")]
+    partial class updateEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,6 +198,7 @@ namespace ShoppEcommerce_WebApp.DAL.Migrations
                         .HasColumnName("store_id");
 
                     b.Property<Guid?>("WorkAddressId")
+                        .IsRequired()
                         .HasColumnType("char(36)")
                         .HasColumnName("work_address_id");
 
@@ -341,7 +345,9 @@ namespace ShoppEcommerce_WebApp.DAL.Migrations
 
                     b.HasOne("ShoppEcommerce_WebApp.Common.Entities.Address", "WorkAddress")
                         .WithOne("EmployeeWork")
-                        .HasForeignKey("ShoppEcommerce_WebApp.Common.Entities.Employee", "WorkAddressId");
+                        .HasForeignKey("ShoppEcommerce_WebApp.Common.Entities.Employee", "WorkAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HomeAddress");
 

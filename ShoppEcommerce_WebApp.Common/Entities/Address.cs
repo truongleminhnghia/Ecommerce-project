@@ -34,7 +34,7 @@ namespace ShoppEcommerce_WebApp.Common.Entities
         public string? AddressDetail { get; set; }
 
         [Column("customer_id")]
-        public Guid CustomerId {  get; set; }
+        public Guid? CustomerId { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
         [InverseProperty(nameof(Customer.OrderAddresses))]

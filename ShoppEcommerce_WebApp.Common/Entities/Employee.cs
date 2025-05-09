@@ -16,11 +16,11 @@ namespace ShoppEcommerce_WebApp.Common.Entities
         [Column("ref_code", TypeName = "VARCHAR(10)")]
         public string? RefCode { get; set; }
 
-        [Required]
+        // [Required]
         [Column("home_address_id")]
         public Guid? HomeAddressId { get; set; }
 
-        [Required]
+        // [Required]
         [Column("work_address_id")]
         public Guid? WorkAddressId { get; set; }
 
